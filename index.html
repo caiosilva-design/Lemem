@@ -150,7 +150,8 @@
     .gestao-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 4rem; }
     .membro-card { background: var(--dark2); border: 1px solid rgba(255,215,0,0.1); padding: 2rem 1.5rem; text-align: center; transition: border-color 0.3s; }
     .membro-card:hover { border-color: rgba(255,215,0,0.4); }
-    .membro-avatar { width: 70px; height: 70px; background: rgba(255,215,0,0.1); border: 2px solid rgba(255,215,0,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.8rem; }
+    .membro-avatar { width: 90px; height: 90px; border: 2px solid rgba(255,215,0,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.8rem; overflow: hidden; background: rgba(255,215,0,0.1); }
+    .membro-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: 50%; display: block; }
     .membro-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--light); }
     .membro-cargo { font-size: 0.8rem; color: var(--yellow); margin-top: 0.3rem; opacity: 0.8; }
 
@@ -456,13 +457,13 @@ function playVideo(videoId, overlayId) {
     <div class="divider"></div>
     <p style="color: rgba(255,255,255,0.5); margin-top: 1rem; max-width: 500px; line-height: 1.7;">O Lemem não é um time — é uma organização. Cada integrante da diretoria carrega a mesma missão: fazer o clube crescer e a família aumentar.</p>
     <div class="gestao-grid">
-      <div class="membro-card"><div class="membro-avatar">👑</div><div class="membro-name">Marcos</div><div class="membro-cargo">Presidente</div></div>
-      <div class="membro-card"><div class="membro-avatar">🛡️</div><div class="membro-name">Tal</div><div class="membro-cargo">Conselheiro</div></div>
-      <div class="membro-card"><div class="membro-avatar">📋</div><div class="membro-name">Caio</div><div class="membro-cargo">Gerente</div></div>
-      <div class="membro-card"><div class="membro-avatar">🤝</div><div class="membro-name">Douglas</div><div class="membro-cargo">Diretor</div></div>
-      <div class="membro-card"><div class="membro-avatar">⚽</div><div class="membro-name">Heitor</div><div class="membro-cargo">Técnico Principal</div></div>
-      <div class="membro-card"><div class="membro-avatar">📈</div><div class="membro-name">Newton</div><div class="membro-cargo">Técnico Desenvolvimento</div></div>
-      <div class="membro-card"><div class="membro-avatar">🧠</div><div class="membro-name">Nivaldo</div><div class="membro-cargo">Técnico Tático</div></div>
+      <div class="membro-card"><div class="membro-avatar"><img src="gestao-marcos.jpg" alt="Marcos" onerror="this.parentElement.innerHTML='👑'" /></div><div class="membro-name">Marcos</div><div class="membro-cargo">Presidente</div></div>
+      <div class="membro-card"><div class="membro-avatar"><img src="gestao-tal.jpg" alt="Tal" onerror="this.parentElement.innerHTML='🛡️'" /></div><div class="membro-name">Tal</div><div class="membro-cargo">Conselheiro</div></div>
+      <div class="membro-card"><div class="membro-avatar"><img src="gestao-caio.jpg" alt="Caio" onerror="this.parentElement.innerHTML='📋'" /></div><div class="membro-name">Caio</div><div class="membro-cargo">Gerente</div></div>
+      <div class="membro-card"><div class="membro-avatar"><img src="gestao-douglas.jpg" alt="Douglas" onerror="this.parentElement.innerHTML='🤝'" /></div><div class="membro-name">Douglas</div><div class="membro-cargo">Diretor</div></div>
+      <div class="membro-card"><div class="membro-avatar"><img src="gestao-heitor.jpg" alt="Heitor" onerror="this.parentElement.innerHTML='⚽'" /></div><div class="membro-name">Heitor</div><div class="membro-cargo">Técnico Principal</div></div>
+      <div class="membro-card"><div class="membro-avatar"><img src="gestao-newton.jpg" alt="Newton" onerror="this.parentElement.innerHTML='📈'" /></div><div class="membro-name">Newton</div><div class="membro-cargo">Técnico Desenvolvimento</div></div>
+      <div class="membro-card"><div class="membro-avatar"><img src="gestao-nivaldo.jpg" alt="Nivaldo" onerror="this.parentElement.innerHTML='🧠'" /></div><div class="membro-name">Nivaldo</div><div class="membro-cargo">Técnico Tático</div></div>
     </div>
   </div>
 </section>
