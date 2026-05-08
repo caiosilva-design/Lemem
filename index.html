@@ -523,23 +523,69 @@
     .patrocinador-card {
       background: var(--dark2);
       border: 1px solid rgba(255,215,0,0.1);
-      padding: 1.5rem 2.5rem;
-      display: flex; align-items: center; justify-content: center;
-      min-width: 180px;
-      min-height: 80px;
+      padding: 1.5rem 2rem;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.75rem;
+      width: 200px;
+      min-height: 140px;
       text-decoration: none;
       transition: all 0.3s;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.6);
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1rem;
+      font-size: 0.85rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       font-weight: 600;
+      text-align: center;
     }
     .patrocinador-card:hover {
-      border-color: rgba(255,215,0,0.4);
+      border-color: rgba(255,215,0,0.5);
       color: var(--yellow);
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255,215,0,0.1);
+    }
+    .patrocinador-card img {
+      width: 72px; height: 72px;
+      object-fit: contain;
+      border-radius: 8px;
+      filter: grayscale(20%);
+      transition: filter 0.3s;
+    }
+    .patrocinador-card:hover img { filter: grayscale(0%); }
+
+    /* Torcida section */
+    #torcida {
+      background: var(--black);
+      padding: 5rem 0;
+      border-top: 1px solid rgba(255,215,0,0.08);
+    }
+    .torcida-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      text-align: center;
+    }
+    .torcida-logo {
+      width: 140px; height: 140px;
+      object-fit: contain;
+      border-radius: 50%;
+      margin: 2rem auto 1rem;
+      display: block;
+      filter: drop-shadow(0 0 20px rgba(255,215,0,0.2));
+      transition: filter 0.3s;
+    }
+    .torcida-logo:hover { filter: drop-shadow(0 0 30px rgba(255,215,0,0.5)); }
+    .torcida-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--yellow);
+      letter-spacing: 0.08em;
+    }
+    .torcida-desc {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.9rem;
+      margin: 0.5rem 0 1.5rem;
+      line-height: 1.6;
     }
 
     /* ── FOOTER ── */
@@ -833,20 +879,44 @@
     <p class="section-label">Quem acredita no Lemem</p>
     <h2 class="section-title" style="text-align:center;">Nossos <span>Patrocinadores</span></h2>
     <div class="divider center"></div>
-    <p style="color: rgba(255,255,255,0.4); margin-top: 1rem; font-size: 0.95rem; line-height: 1.7;">
+    <p style="color: rgba(255,255,255,0.4); margin-top: 1rem; font-size: 0.95rem; line-height: 1.7; text-align:center;">
       Parceiros que acreditam na nossa história e apoiam o futebol de várzea da Zona Sul.
     </p>
 
     <div class="patrocinadores-grid">
-      <a href="#" class="patrocinador-card">SC Telecom</a>
-      <a href="#" class="patrocinador-card">Patrocinador 2</a>
-      <a href="#" class="patrocinador-card">Patrocinador 3</a>
-      <a href="#" class="patrocinador-card">+ Seja parceiro</a>
+      <a href="https://cs-store-omega.vercel.app/" target="_blank" class="patrocinador-card">
+        <img src="logo-cria.png" alt="Cria Studio" />
+        Cria Studio
+      </a>
+      <a href="https://www.instagram.com/sc_telecom" target="_blank" class="patrocinador-card">
+        <img src="logo-sc.png" alt="SC Telecom" />
+        SC Telecom
+      </a>
+      <a href="https://www.instagram.com/mercadinhodavila_1" target="_blank" class="patrocinador-card">
+        <img src="logo-mercadinho.png" alt="Mercadinho da Vila" />
+        Mercadinho da Vila
+      </a>
+      <a href="https://wa.me/5511972734037" target="_blank" class="patrocinador-card" style="border-style: dashed;">
+        <span style="font-size:2rem;">+</span>
+        Seja parceiro
+      </a>
     </div>
+  </div>
+</section>
 
-    <p style="margin-top: 2rem; font-size: 0.8rem; color: rgba(255,255,255,0.25); font-style: italic;">
-      * Adicione os nomes, logos e links dos patrocinadores nesta seção. Para se tornar parceiro, entre em contato via WhatsApp.
-    </p>
+<!-- TORCIDA -->
+<section id="torcida">
+  <div class="torcida-inner">
+    <p class="section-label" style="text-align:center;">Nossa família nas arquibancadas</p>
+    <h2 class="section-title" style="text-align:center; font-size: clamp(2rem, 5vw, 3.5rem);">Torcida <span>Organizada</span></h2>
+    <a href="https://www.instagram.com/torcida_barkoloko" target="_blank">
+      <img src="logo-barko.png" alt="Torcida Barko Loko" class="torcida-logo" />
+    </a>
+    <div class="torcida-name">Barko Loko</div>
+    <p class="torcida-desc">A torcida que invade o campo, faz a festa e nunca abandona. No sol, na chuva, no calor ou no frio — a Barko Loko está lá.</p>
+    <a href="https://www.instagram.com/torcida_barkoloko" target="_blank" class="btn btn-outline" style="font-size:0.85rem;">
+      @torcida_barkoloko
+    </a>
   </div>
 </section>
 
