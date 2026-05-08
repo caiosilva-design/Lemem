@@ -446,6 +446,17 @@
     @media (max-width: 768px) {
       .galeria-strip { grid-template-columns: 1fr; }
       .galeria-foto { aspect-ratio: 4/3; }
+      .galeria-strip-4 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Galeria 4 fotos */
+    .galeria-strip-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .galeria-strip-4 .galeria-foto {
+      aspect-ratio: 3/4;
     }
 
     /* ── GESTÃO ── */
@@ -983,6 +994,45 @@
       <div class="galeria-foto-label">
         <span>Copa do Rei 2022</span>
         Uma Família Unida
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA: COPA ANHANGUERA 2023 -->
+<section id="galeria-anhanguera" style="background: var(--dark2); padding: 0 0 8rem; overflow: hidden;">
+  <div class="galeria-header">
+    <p class="section-label">2023 · Mais uma vez debaixo de chuva</p>
+    <h2 class="section-title"><span>Copa Anhanguera</span> 2023</h2>
+    <div class="divider"></div>
+    <p style="color:rgba(255,255,255,0.5); max-width:620px; line-height:1.8; margin-top:0.75rem; font-size:0.95rem;">
+      A chuva voltou — e com ela, mais um título. O Lemem provou que não foi sorte. Foi caráter, foi garra, foi família. Campeões da Anhanguera com muita luta e torcida fazendo a festa.
+    </p>
+  </div>
+  <div class="galeria-strip-4">
+    <div class="galeria-foto">
+      <img src="Anhanguera.jpg" alt="Lemem FC — Copa Anhanguera 2023" />
+      <div class="galeria-foto-overlay"></div>
+      <div class="galeria-chuva-tag">🏆 2023</div>
+      <div class="galeria-foto-label">
+        <span>Copa Anhanguera</span>
+        Campeões
+      </div>
+    </div>
+    <div class="galeria-foto">
+      <img src="Anhanguera2.jpg" alt="Lemem FC — Copa Anhanguera 2023" />
+      <div class="galeria-foto-overlay"></div>
+    </div>
+    <div class="galeria-foto">
+      <img src="Anhanguera3.jpg" alt="Lemem FC — Copa Anhanguera 2023" />
+      <div class="galeria-foto-overlay"></div>
+    </div>
+    <div class="galeria-foto">
+      <img src="Anhanguera4.jpg" alt="Lemem FC — Copa Anhanguera 2023" />
+      <div class="galeria-foto-overlay"></div>
+      <div class="galeria-foto-label">
+        <span>Zona Sul · SP</span>
+        A Família Celebra
       </div>
     </div>
   </div>
