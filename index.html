@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LEMEM FC — Futebol Clube</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --yellow: #FFD700;
+      --yellow-dark: #e6b800;
+      --yellow-glow: #ffe44d;
+      --black: #0a0a0a;
+      --dark: #111111;
+      --dark2: #1a1a1a;
+      --gray: #888;
+      --light: #f5f5f5;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--light);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,215,0,0.15);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-logo img { height: 48px; filter: drop-shadow(0 0 8px rgba(255,215,0,0.5)); }
+    .nav-logo span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--yellow);
+      letter-spacing: 0.1em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--black);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,215,0,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(255,215,0,0.06) 0%, transparent 60%);
+    }
+    .hero-stripes {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent 0px,
+        transparent 40px,
+        rgba(255,215,0,0.025) 40px,
+        rgba(255,215,0,0.025) 42px
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      animation: fadeUp 1s ease both;
+    }
+    .hero-logo {
+      width: 180px; height: 180px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 40px rgba(255,215,0,0.5));
+      animation: pulse-logo 3s ease-in-out infinite;
+      margin-bottom: 2rem;
+    }
+    @keyframes pulse-logo {
+      0%, 100% { filter: drop-shadow(0 0 30px rgba(255,215,0,0.4)); }
+      50% { filter: drop-shadow(0 0 60px rgba(255,215,0,0.8)); }
+    }
+    .hero-since {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.4em;
+      color: var(--yellow);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      opacity: 0.8;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 16vw, 13rem);
+      line-height: 0.85;
+      color: var(--yellow);
+      text-shadow:
+        0 0 80px rgba(255,215,0,0.3),
+        4px 4px 0px rgba(0,0,0,0.8);
+      letter-spacing: 0.04em;
+    }
+    .hero-subtitle {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .hero-tagline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: rgba(255,215,0,0.7);
+      margin-bottom: 3rem;
+    }
+    .hero-cta {
+      display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    }
+    .btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.5rem;
+      border: none; cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--black);
+    }
+    .btn-primary:hover {
+      background: var(--yellow-glow);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(255,215,0,0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--yellow);
+      border: 2px solid var(--yellow);
+    }
+    .btn-outline:hover {
+      background: rgba(255,215,0,0.1);
+      transform: translateY(-2px);
+    }
+
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: rgba(255,215,0,0.4);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, rgba(255,215,0,0.4), transparent);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── TITLES ── */
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 0.75rem;
+      opacity: 0.8;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.9;
+      color: var(--light);
+      letter-spacing: 0.03em;
+    }
+    .section-title span { color: var(--yellow); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--yellow);
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: var(--black);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.6);
+      font-weight: 600;
+    }
+
+    /* ── HISTÓRIA ── */
+    #historia {
+      padding: 8rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .historia-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+    .historia-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+      margin-top: 4rem;
+    }
+    .historia-text p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 1.25rem;
+    }
+    .historia-text p strong {
+      color: var(--yellow);
+      font-weight: 600;
+    }
+    .historia-visual {
+      position: sticky;
+      top: 120px;
+    }
+    .historia-logo-big {
+      width: 100%;
+      max-width: 380px;
+      display: block;
+      margin: 0 auto;
+      filter: drop-shadow(0 0 60px rgba(255,215,0,0.3));
+    }
+    .quote-block {
+      border-left: 4px solid var(--yellow);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+    }
+    .quote-block p {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-style: italic;
+      font-size: 1.4rem !important;
+      line-height: 1.5 !important;
+      color: var(--yellow) !important;
+    }
+
+    /* ── TÍTULOS (TIMELINE) ── */
+    #titulos {
+      background: var(--dark2);
+      padding: 8rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #titulos::before {
+      content: 'CAMPEÕES';
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20rem;
+      color: rgba(255,215,0,0.03);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .titulos-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+    .titulos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    .titulo-card {
+      background: var(--dark);
+      border: 1px solid rgba(255,215,0,0.15);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .titulo-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,215,0,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .titulo-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,215,0,0.5);
+    }
+    .titulo-trophy {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .titulo-year {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .titulo-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      margin: 0.5rem 0;
+    }
+    .titulo-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.5;
+      margin-top: 0.5rem;
+    }
+
+    /* ── GESTÃO ── */
+    #gestao {
+      padding: 8rem 0;
+    }
+    .gestao-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+    .gestao-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+    .membro-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,215,0,0.1);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: border-color 0.3s;
+    }
+    .membro-card:hover { border-color: rgba(255,215,0,0.4); }
+    .membro-avatar {
+      width: 70px; height: 70px;
+      background: rgba(255,215,0,0.1);
+      border: 2px solid rgba(255,215,0,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.8rem;
+    }
+    .membro-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+    .membro-cargo {
+      font-size: 0.8rem;
+      color: var(--yellow);
+      margin-top: 0.3rem;
+      opacity: 0.8;
+    }
+
+    /* ── PRODUTOS ── */
+    #produtos {
+      background: var(--dark2);
+      padding: 8rem 0;
+    }
+    .produtos-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+    .produtos-intro {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-top: 1rem;
+    }
+    .produtos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .produto-card {
+      background: var(--dark);
+      border: 1px solid rgba(255,215,0,0.1);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .produto-card:hover {
+      border-color: rgba(255,215,0,0.5);
+      transform: translateY(-4px);
+    }
+    .produto-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .produto-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 0.5rem;
+    }
+    .produto-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .produto-tag {
+      display: inline-block;
+      background: rgba(255,215,0,0.12);
+      color: var(--yellow);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid rgba(255,215,0,0.25);
+    }
+    .produtos-cta {
+      margin-top: 3rem;
+      text-align: center;
+    }
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #25D366;
+      color: white;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .whatsapp-btn:hover {
+      background: #1ebe57;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37,211,102,0.3);
+    }
+    .whatsapp-btn svg { width: 22px; height: 22px; fill: white; }
+
+    /* ── PATROCINADORES ── */
+    #patrocinadores {
+      padding: 6rem 0;
+      border-top: 1px solid rgba(255,215,0,0.1);
+    }
+    .patrocinadores-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      text-align: center;
+    }
+    .patrocinadores-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .patrocinador-card {
+      background: var(--dark2);
+      border: 1px solid rgba(255,215,0,0.1);
+      padding: 1.5rem 2.5rem;
+      display: flex; align-items: center; justify-content: center;
+      min-width: 180px;
+      min-height: 80px;
+      text-decoration: none;
+      transition: all 0.3s;
+      color: rgba(255,255,255,0.5);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .patrocinador-card:hover {
+      border-color: rgba(255,215,0,0.4);
+      color: var(--yellow);
+      transform: translateY(-3px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050505;
+      border-top: 1px solid rgba(255,215,0,0.1);
+      padding: 3rem;
+      text-align: center;
+    }
+    .footer-logo img {
+      height: 60px;
+      filter: drop-shadow(0 0 12px rgba(255,215,0,0.3));
+      margin-bottom: 1.5rem;
+    }
+    .footer-links {
+      display: flex; justify-content: center; gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.2);
+      margin-top: 1rem;
+    }
+
+    /* ── SEPARATOR ── */
+    .divider {
+      width: 60px; height: 3px;
+      background: var(--yellow);
+      margin: 1.5rem 0;
+    }
+    .divider.center { margin: 1.5rem auto; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .historia-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .historia-visual { display: none; }
+      .titulos-grid { grid-template-columns: 1fr; }
+      .stats-bar { gap: 2rem; }
+      .historia-inner, .titulos-inner, .gestao-inner,
+      .produtos-inner, .patrocinadores-inner { padding: 0 1.5rem; }
+      .hero-logo { width: 130px; height: 130px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="lemem-logo.jpg" alt="Lemem FC" />
+    <span>Lemem FC</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#historia">História</a></li>
+    <li><a href="#titulos">Títulos</a></li>
+    <li><a href="#gestao">Gestão</a></li>
+    <li><a href="#produtos">Produtos</a></li>
+    <li><a href="#patrocinadores">Patrocinadores</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stripes"></div>
+  <div class="hero-content">
+    <img src="lemem-logo.jpg" alt="Lemem FC Logo" class="hero-logo" />
+    <p class="hero-since">Fundado em 2016 · Zona Sul · São Paulo</p>
+    <h1 class="hero-title">LEMEM</h1>
+    <p class="hero-subtitle">Futebol Clube</p>
+    <p class="hero-tagline">"Das quebradas para o mundo. Da pelada para o título."</p>
+    <div class="hero-cta">
+      <a href="#historia" class="btn btn-primary">Nossa história</a>
+      <a href="https://www.instagram.com/lememfc" target="_blank" class="btn btn-outline">@lememfc</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">2016</div>
+    <div class="stat-label">Fundação</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Títulos</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">10</div>
+    <div class="stat-label">Anos de história</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1</div>
+    <div class="stat-label">Família</div>
+  </div>
+</div>
+
+<!-- HISTÓRIA -->
+<section id="historia">
+  <div class="historia-inner">
+    <p class="section-label">Desde 2016</p>
+    <h2 class="section-title">Nossa <span>História</span></h2>
+    <div class="divider"></div>
+
+    <div class="historia-grid">
+      <div class="historia-text">
+        <p>
+          Tudo começou de forma simples, quase improvisada. Em <strong>2016</strong>, num canto da Zona Sul de São Paulo, um grupo de amigos decidiu que queria mais do que jogar bola — queria evoluir. Assim nasceu o <strong>Lemem Futebol Clube</strong>, não de uma quadra bonita nem de um investimento milionário, mas da vontade pura de crescer, de suar junto, de ser algo maior.
+        </p>
+        <p>
+          No começo, as atividades eram físicas: treinos de condicionamento, exercícios específicos de futebol, disciplina. A proposta era simples — ser melhor todo dia. Aos poucos, aquilo que era só uma rotina de treinos foi ganhando forma. Uma identidade. Uma marca. <strong>Uma família.</strong>
+        </p>
+        <div class="quote-block">
+          <p>"Na época não tínhamos nem uniforme pra jogar. Era um esforço só pra ir com as mesmas cores pro jogo."</p>
+        </div>
+        <p>
+          Mas o Lemem nunca parou. Com organização, persistência e muito trabalho coletivo, a coisa foi tomando proporção. O clube cresceu. O grupo cresceu. E em <strong>2022</strong>, chegou a hora de mostrar pro mundo o que essa galera era capaz.
+        </p>
+        <p>
+          A Copa do Rei. Final eletrizante, debaixo de chuva, coração na garganta. E o apito final — <strong>Lemem campeão.</strong> O primeiro grande título. As lágrimas se misturaram com a chuva e ninguém mais queria sair de campo.
+        </p>
+        <p>
+          No ano seguinte, 2023, o desafio era manter a chama acesa. E o Lemem não só manteve — ele foi além. <strong>Campeão da Copa Anhanguera</strong>, de novo debaixo de chuva. Como se o céu soubesse que essa história precisava ser molhada de emoção para ser verdadeira.
+        </p>
+        <p>
+          Com o início de <strong>2025</strong>, veio uma nova fase. Mais pessoas, nova diretoria, novos patrocinadores, mais estrutura. O objetivo era claro: aumentar a torcida, expandir a família, e levar alegria pras quebradas. Jogos semanais — às vezes dois, às vezes três por semana — cansativo, mas necessário. Cada partida era mais uma chance de conquistar corações.
+        </p>
+        <p>
+          E os corações foram sendo conquistados. Torcedores foram chegando. No sol, na chuva, no calor ou no frio, a galera estava lá. Gritando. Vibrando. Fazendo parte.
+        </p>
+        <div class="quote-block">
+          <p>"No sol, na chuva, no calor ou no frio — íamos torcer ao Lemem."</p>
+        </div>
+        <p>
+          No final da temporada de 2025, a consagração. <strong>Campeões da Taça das Quebradas</strong>. Nos pênaltis, com a torcida enlouquecida, o Lemem foi além de qualquer expectativa. A invasão de campo foi inevitável. A festa foi total. E esse título não era só do time — era da comunidade inteira.
+        </p>
+        <p>
+          Hoje, o <strong>Lemem completou 10 anos</strong>. Uma década de suor, superação e vitórias conquistadas do jeito mais bonito possível: junto. O aniversário foi nosso, mas a festa é de vocês — da nossa família, da nossa torcida, das quebradas que nos deram força quando mais precisamos.
+        </p>
+        <p style="color: var(--yellow); font-weight: 600;">
+          Isso é Lemem. Isso é família. E a história está longe de acabar.
+        </p>
+      </div>
+      <div class="historia-visual">
+        <img src="lemem-logo.jpg" alt="Lemem FC" class="historia-logo-big" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TÍTULOS -->
+<section id="titulos">
+  <div class="titulos-inner">
+    <p class="section-label">Conquistados com suor e chuva</p>
+    <h2 class="section-title">Nossos <span>Títulos</span></h2>
+    <div class="divider"></div>
+
+    <div class="titulos-grid">
+      <div class="titulo-card">
+        <span class="titulo-trophy">🏆</span>
+        <div class="titulo-year">2022</div>
+        <div class="titulo-name">Copa do Rei</div>
+        <p class="titulo-desc">Final eletrizante disputada debaixo de chuva. O primeiro grande título da história do Lemem. A chuva virou confete.</p>
+      </div>
+      <div class="titulo-card">
+        <span class="titulo-trophy">🏆</span>
+        <div class="titulo-year">2023</div>
+        <div class="titulo-name">Copa Anhanguera</div>
+        <p class="titulo-desc">Mais um título conquistado na chuva. O Lemem provando que adversidade é combustível, não obstáculo.</p>
+      </div>
+      <div class="titulo-card">
+        <span class="titulo-trophy">🏆</span>
+        <div class="titulo-year">2025</div>
+        <div class="titulo-name">Taça das Quebradas</div>
+        <p class="titulo-desc">Decidido nos pênaltis com a torcida explodindo. Invasão de campo, festa total — o título mais celebrado da história do clube.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GESTÃO -->
+<section id="gestao">
+  <div class="gestao-inner">
+    <p class="section-label">As pessoas por trás do clube</p>
+    <h2 class="section-title">Nossa <span>Gestão</span></h2>
+    <div class="divider"></div>
+    <p style="color: rgba(255,255,255,0.5); margin-top: 1rem; max-width: 500px; line-height: 1.7;">
+      O Lemem não é um time — é uma organização. Cada integrante da diretoria carrega a mesma missão: fazer o clube crescer e a família aumentar.
+    </p>
+
+    <div class="gestao-grid">
+      <div class="membro-card">
+        <div class="membro-avatar">👑</div>
+        <div class="membro-name">A definir</div>
+        <div class="membro-cargo">Presidente</div>
+      </div>
+      <div class="membro-card">
+        <div class="membro-avatar">⚽</div>
+        <div class="membro-name">A definir</div>
+        <div class="membro-cargo">Diretor Técnico</div>
+      </div>
+      <div class="membro-card">
+        <div class="membro-avatar">📣</div>
+        <div class="membro-name">A definir</div>
+        <div class="membro-cargo">Comunicação</div>
+      </div>
+      <div class="membro-card">
+        <div class="membro-avatar">🤝</div>
+        <div class="membro-name">A definir</div>
+        <div class="membro-cargo">Patrocinadores</div>
+      </div>
+      <div class="membro-card">
+        <div class="membro-avatar">🎽</div>
+        <div class="membro-name">A definir</div>
+        <div class="membro-cargo">Gestor de Elenco</div>
+      </div>
+    </div>
+    <p style="margin-top: 1.5rem; font-size: 0.8rem; color: rgba(255,255,255,0.3); font-style: italic;">
+      * Adicione os nomes da diretoria nesta seção.
+    </p>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section id="produtos">
+  <div class="produtos-inner">
+    <p class="section-label">Vista as cores do Lemem</p>
+    <h2 class="section-title">Nossos <span>Produtos</span></h2>
+    <div class="divider"></div>
+    <p class="produtos-intro">
+      Produtos oficiais do Lemem FC, todos feitos sob demanda. Entre em contato via WhatsApp para encomendar e levar um pedaço dessa história com você.
+    </p>
+
+    <div class="produtos-grid">
+      <div class="produto-card">
+        <div class="produto-icon">👕</div>
+        <div class="produto-name">Camisa Oficial</div>
+        <p class="produto-desc">A camisa do guerreiro. Amarelo e preto, as cores que representam nossa história e nossa garra dentro de campo.</p>
+        <span class="produto-tag">Sob demanda</span>
+      </div>
+      <div class="produto-card">
+        <div class="produto-icon">🩳</div>
+        <div class="produto-name">Shorts Oficial</div>
+        <p class="produto-desc">Complete o uniforme. Conforto e identidade para treinar e jogar com as cores do Lemem.</p>
+        <span class="produto-tag">Sob demanda</span>
+      </div>
+      <div class="produto-card">
+        <div class="produto-icon">🧢</div>
+        <div class="produto-name">Bone / Cap</div>
+        <p class="produto-desc">Represente o Lemem no dia a dia. Qualidade premium com o escudo que conquistou três títulos.</p>
+        <span class="produto-tag">Sob demanda</span>
+      </div>
+      <div class="produto-card">
+        <div class="produto-icon">☕</div>
+        <div class="produto-name">Caneca Oficial</div>
+        <p class="produto-desc">Comece o dia com o Lemem. A caneca perfeita pra quem vive e respira futebol de várzea.</p>
+        <span class="produto-tag">Sob demanda</span>
+      </div>
+    </div>
+
+    <div class="produtos-cta">
+      <p style="color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; letter-spacing: 0.05em;">
+        Para encomendar qualquer produto, fale diretamente comigo no WhatsApp:
+      </p>
+      <a href="https://wa.me/5511972734037" target="_blank" class="whatsapp-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Falar no WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PATROCINADORES -->
+<section id="patrocinadores">
+  <div class="patrocinadores-inner">
+    <p class="section-label">Quem acredita no Lemem</p>
+    <h2 class="section-title" style="text-align:center;">Nossos <span>Patrocinadores</span></h2>
+    <div class="divider center"></div>
+    <p style="color: rgba(255,255,255,0.4); margin-top: 1rem; font-size: 0.95rem; line-height: 1.7;">
+      Parceiros que acreditam na nossa história e apoiam o futebol de várzea da Zona Sul.
+    </p>
+
+    <div class="patrocinadores-grid">
+      <a href="#" class="patrocinador-card">SC Telecom</a>
+      <a href="#" class="patrocinador-card">Patrocinador 2</a>
+      <a href="#" class="patrocinador-card">Patrocinador 3</a>
+      <a href="#" class="patrocinador-card">+ Seja parceiro</a>
+    </div>
+
+    <p style="margin-top: 2rem; font-size: 0.8rem; color: rgba(255,255,255,0.25); font-style: italic;">
+      * Adicione os nomes, logos e links dos patrocinadores nesta seção. Para se tornar parceiro, entre em contato via WhatsApp.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="lemem-logo.jpg" alt="Lemem FC" />
+  </div>
+  <div class="footer-links">
+    <a href="#historia">História</a>
+    <a href="#titulos">Títulos</a>
+    <a href="#gestao">Gestão</a>
+    <a href="#produtos">Produtos</a>
+    <a href="https://www.instagram.com/lememfc" target="_blank">Instagram</a>
+    <a href="https://wa.me/5511972734037" target="_blank">WhatsApp</a>
+  </div>
+  <p class="footer-copy">© 2026 Lemem Futebol Clube · Jd. IV Centenário · Zona Sul · SP · Todos os direitos reservados</p>
+</footer>
+
+</body>
+</html>
