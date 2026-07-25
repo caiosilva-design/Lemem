@@ -2,7 +2,7 @@
 
 Site institucional do **Lemem Futebol Clube**, fundado em 2016 na Zona Sul de São Paulo. Apresenta a história do clube, títulos conquistados, elenco/diretoria, produtos oficiais e patrocinadores.
 
-🔗 Produção: `www.criastudiostore.com.br` *(ajuste este link se o domínio for outro)*
+🔗 Produção: `www.###.com.br`
 
 ## Estrutura do projeto
 
